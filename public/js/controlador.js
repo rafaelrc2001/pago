@@ -1,7 +1,7 @@
-async function pagar(productoId, boton) {
+async function pagar(productoId) {
+  const boton = document.getElementById(`btn-${productoId}`);
   const errorEl = document.getElementById(`error-${productoId}`);
 
-  // Resetear estado anterior
   errorEl.textContent = '';
   errorEl.classList.remove('visible');
   boton.disabled = true;
@@ -20,7 +20,6 @@ async function pagar(productoId, boton) {
       throw new Error(datos.error || 'Error al iniciar el pago.');
     }
 
-    // Redirigir a Stripe Checkout
     window.location.href = datos.url;
   } catch (err) {
     errorEl.textContent = err.message;
@@ -29,3 +28,6 @@ async function pagar(productoId, boton) {
     boton.textContent = 'Comprar';
   }
 }
+
+document.getElementById('btn-producto1').addEventListener('click', () => pagar('producto1'));
+document.getElementById('btn-producto2').addEventListener('click', () => pagar('producto2'));
